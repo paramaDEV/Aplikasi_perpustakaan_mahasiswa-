@@ -35,6 +35,7 @@
           <li class="nav-item">
             <a href=<?=base_url()."main_controller/data_buku"?> class="nav-link">
               <i class="nav-icon fas fa-book"></i>
+              <p>
                Data Buku
               </p>
             </a>

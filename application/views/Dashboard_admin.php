@@ -56,7 +56,7 @@
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-clock"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Belum Kembali & Terlambat</span>
+                <span class="info-box-text">Terlambat</span>
                 <span class="info-box-number">760</span>
               </div>
               <!-- /.info-box-content -->

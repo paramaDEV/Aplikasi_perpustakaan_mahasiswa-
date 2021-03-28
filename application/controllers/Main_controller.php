@@ -30,7 +30,7 @@ class Main_controller extends CI_Controller{
         $data["tema"]=$this->main_model->get_tema();
 
         $this->form_validation->set_rules('judul_buku','Judul','required');
-        $this->form_validation->set_rules('kd_buku','Kode','required');
+        $this->form_validation->set_rules('kd_buku','Kode','exact_length[6]');
         $this->form_validation->set_rules('tema','Tema','required');
         $this->form_validation->set_rules('penulis','Penulis','required');
         $this->form_validation->set_rules('penerbit','Penerbit','required');
@@ -81,13 +81,92 @@ class Main_controller extends CI_Controller{
         redirect("main_controller/data_buku");
     }
 
-    public function hapus($id){
+    public function hal_update_buku($id){
+        $this->load->model('main_model');
+        $data["buku"]=$this->main_model->get_detail_buku($id);
+        $data["tema"]=$this->main_model->get_tema();
+
+        $this->form_validation->set_rules("kode_buku","Kode Buku","required");
+        $this->form_validation->set_rules("judul","Judul Buku","required");
+        $this->form_validation->set_rules("penulis","Penulis","required");
+        $this->form_validation->set_rules("tema","Tema","required");
+        $this->form_validation->set_rules("penerbit","Penerbit","required");
+        $this->form_validation->set_rules("jmlh_halaman","Jumlah Halaman","required");
+        $this->form_validation->set_rules("jmlh_buku","Jumlah Buku","required");
+
+        if($this->form_validation->run()==FALSE){
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/update_buku',$data);
+        $this->load->view('templates_admin/footer');
+        }else{
+            $this->update_buku();
+        }
+    }
+
+    public function update_buku(){
+        $id = $this->input->post('id_buku');
+        $judul = $this->input->post('judul');
+        $kode  = $this->input->post('kode_buku');
+        $penulis = $this->input->post('penulis');
+        $tema = $this->input->post('tema');
+        $penerbit = $this->input->post('penerbit');
+        $jmlh_halaman = $this->input->post('jmlh_halaman');
+        $jmlh_buku = $this->input->post('jmlh_buku');
+        $thumbnail = $_FILES["thumb"];
+        $thumb_name = $this->input->post('thumb_name');
+
+        if($thumbnail!=""){
+            $config["upload_path"]="./img/buku";
+            $config["allowed_types"]="jpg|jpeg|png";
+            $config["encrypt_name"]=TRUE;
+            $config["max_size"]=500;
+
+            $this->load->library('upload',$config);
+            if($this->upload->do_upload('thumb')){
+                $thumb_name=$this->upload->data('file_name');
+            }
+        }
+        $where = [
+            "id"=>$id
+        ];
+        $data = [
+            "kode_buku"=>$kode,
+            "judul"=>$judul,
+            "id_tema"=>$tema,
+            "penulis"=>$penulis,
+            "jumlah_halaman"=>$jmlh_halaman,
+            "penerbit"=>$penerbit,
+            "jumlah"=>$jmlh_buku,
+            "thumbnail"=>$thumb_name
+        ];
+        $this->main_model->update_buku($where,$data);
+        redirect('main_controller/data_buku');
+    }
+    public function hapus_buku($id){
         $where = [
             "id"=>$id
         ];
         $this->main_model->hapus($where);
         redirect('main_controller/data_buku');
         
+    }
+
+    public function detail_buku($id){
+        $data["buku"]=$this->main_model->get_detail_buku($id);
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/detail_buku',$data);
+        $this->load->view('templates_admin/footer');
+    }
+
+    public function detail_thumbnail($id){
+        $data=$this->main_model->get_detail_buku($id);
+        if($data[0]["thumbnail"]!=""){
+            echo "img/buku/book.png";
+        }else{
+            echo "img/buku/".$data[0]["thumbnail"];
+        }
     }
 
 

@@ -17,7 +17,7 @@
     <section class="content">
       <div class="container-fluid">
       <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#staticBackdrop">
+    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#tambah_buku">
     <i class="fas fa-plus"></i> Tambah Data Buku
     </button>
     <?php if(validation_errors()):?> 
@@ -28,8 +28,8 @@
         </button>
       </div>
     <?php endif;?>
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal Tambah Buku-->
+    <div class="modal fade" id="tambah_buku" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -43,6 +43,7 @@
           <div class="form-group">
             <label for="kd_buku">Kode Buku</label>
             <input type="text" class="form-control" id="kd_buku" placeholder="" name="kd_buku">
+            <h6 class="mt-2"><i>*Kode harus 6 digit</i></h6>
           </div>
           <div class="form-group">
             <label for="judul_buku">Judul Buku</label>
@@ -127,20 +128,28 @@
                       <td><?=$x["kode_buku"]?></td>
                       <td><?=$x["judul"]?></td>
                       <td><?=$x["tema"]?></td>
-                      <td colspan=3><a href=<?=base_url()."main_controller/hapus/".$x["id"]?>>
-                      <button type="button" class="btn btn-primary" onclick="return confirm('Anda yakin menghapus data ini ?');"><i class="fas fa-file"></i>
+                      <td colspan=3><a href=<?=base_url()."main_controller/detail_buku/".$x["id"]?>>
+                      <button type="button" class="btn btn-primary" >Detail
                       </button></a>
-                      <a href=<?=base_url()."main_controller/hapus/".$x["id"]?>>
-                      <button type="button" class="btn btn-success m-2" onclick="return confirm('Anda yakin menghapus data ini ?');"><i class="fas fa-pen"></i>
+                      <a href=<?=base_url()."main_controller/hal_update_buku/".$x["id"]?>>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop" >Edit
                       </button></a>
-                      <a href=<?=base_url()."main_controller/hapus/".$x["id"]?>>
-                      <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data ini ?');"><i class="fas fa-trash-alt"></i>
+                      <a href=<?=base_url()."main_controller/hapus_buku/".$x["id"]?>>
+                      <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data ini ?');">Delete
                       </button></a></td>
                     </tr>
                     <?php endforeach;?>
                   </tbody>
                 </table>
               </div>
-            </div>
-    </section>
+            </div> 
 </div>
+<style>
+  table .btn{
+    height : unset;
+    width : 50px;
+    padding : 2px;
+    font-size:14px;
+    margin : 2px;
+  }
+</style>
