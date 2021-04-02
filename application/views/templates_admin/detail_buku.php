@@ -16,39 +16,32 @@
     </div>
     <section class="content">
       <div class="container-fluid">
-        <div class="card auto">
-              <div class="card-header">
-                <h3 class="card-title" style="font-size:30px">
-                  <i class="ion ion-clipboard mr-1"></i>
-                  <?=$buku[0]["judul"]?>
-                </h3>
-              </div>
               <div class="card-body">
               <div class="card mx-auto" id="detail" style="">
                 <div class="image mx-auto" style="overflow:hidden" >
-                  <img src="<?php if($buku[0]["thumbnail"]==""){
+                  <img src="<?php if($buku["thumbnail"]==""){
                       echo base_url()."img/buku/book.png";
                   }else{
-                      echo base_url()."img/buku/".$buku[0]["thumbnail"];
+                      echo base_url()."img/buku/".$buku["thumbnail"];
                   }?>" 
                   class="thumbnail mx-auto mt-3"  alt="Cover Buku">
                 </div>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Judul : <?=$buku[0]["judul"]?> </li>
-                    <li class="list-group-item">Kode : <?=$buku[0]["kode_buku"]?></li>
-                    <li class="list-group-item">Tema : <?=$buku[0]["tema"]?></li>
-                    <li class="list-group-item">Penerbit : <?=$buku[0]["penerbit"]?></li>
-                    <li class="list-group-item">Penulis : <?=$buku[0]["penulis"]?></li>
-                    <li class="list-group-item">Jumlah Halaman : <?=$buku[0]["jumlah_halaman"]?> Hal</li>
-                    <li class="list-group-item">Jumlah Buku : <?=$buku[0]["jumlah"]?> </li>
+                    <li class="list-group-item">Judul : <?=$buku["judul"]?> </li>
+                    <li class="list-group-item">Kode : <?=$buku["kode_buku"]?></li>
+                    <li class="list-group-item">Tema : <?=$buku["tema"]?></li>
+                    <li class="list-group-item">Penerbit : <?=$buku["penerbit"]?></li>
+                    <li class="list-group-item">Penulis : <?=$buku["penulis"]?></li>
+                    <li class="list-group-item">Jumlah Halaman : <?=$buku["jumlah_halaman"]?> Hal</li>
+                    <li class="list-group-item">Jumlah Buku : <?=$buku["jumlah"]?> </li>
+                    <li class="list-group-item">Lokasi Buku : Rak <?=$buku["lokasi"]?> </li>
                   </ul>
                   <div class="card-body">
-                    <b><a href=<?=base_url()."main_controller/hal_update_buku/".$buku[0]["id"]?> class="card-link mr-3">Edit</a></b>
-                    <b><a href=<?=base_url()."main_controller/hapus_buku/".$buku[0]["id"]?> class="card-link text-danger"
+                    <b><a href=<?=base_url()."main_controller/hal_update_buku/".$buku["id"]?> class="card-link mr-3">Edit</a></b>
+                    <b><a href=<?=base_url()."main_controller/hapus_buku/".$buku["id"]?> class="card-link text-danger"
                     onclick="return confirm('Apakah anda yakin menhapus data ini ?')">Delete</a></b>
                   </div>
                 </div>
-              </div>
             </div>
     </section>
 </div>

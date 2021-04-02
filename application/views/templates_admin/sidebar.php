@@ -41,10 +41,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href=<?=base_url()."main_controller/hal_peminjaman"?>  class="nav-link">
               <i class="nav-icon fas fa-layer-group"></i>
               <p>
-                Pinjaman Aktif
+                Peminjaman
               </p>
             </a>
           </li>
@@ -52,7 +52,7 @@
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
-                Riwayat
+                Riwayat Transaksi
               </p>
             </a>
           </li>

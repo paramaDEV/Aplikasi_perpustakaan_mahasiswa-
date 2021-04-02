@@ -17,7 +17,7 @@
     <section class="content">
       <div class="container-fluid">
       <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#tambah_buku">
+    <button type="button" class="btn btn-success mb-3" style="margin-top:-10px" data-toggle="modal" data-target="#tambah_buku">
     <i class="fas fa-plus"></i> Tambah Data Buku
     </button>
     <?php if(validation_errors()):?> 
@@ -77,9 +77,13 @@
             <input type="text" class="form-control" id="jmlh_buku" placeholder="" name="jmlh_buku">
           </div>
           <div class="form-group">
+            <label for="lokasi">Lokasi buku</label>
+            <input type="text" class="form-control" id="lokasi" placeholder="" name="lokasi">
+          </div>
+          <div class="form-group">
             <label for="thumb">Cover buku</label><br>
             <input type="file" name="thumb" id="thumb"><br>
-            <h6 class="mt-2"><i>*Format foto : JPG, JPEG, PNG <br> Ukuran maksimal = 500 kB<br><span class="danger">Jika foto tidak sesuai ketentuan maka tidak akan tersimpan di database</span></i></h6>
+            <h6 class="mt-2"><i>*Format foto : JPG, JPEG, PNG <br> Ukuran maksimal = 200 kB<br><span class="danger">Jika foto tidak sesuai ketentuan maka tidak akan tersimpan di database</span></i></h6>
           </div>
           </div>
           <div class="modal-footer">

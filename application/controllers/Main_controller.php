@@ -56,11 +56,12 @@ class Main_controller extends CI_Controller{
          $jmlh_halaman = $this->input->post('jmlh_halaman');
          $jmlh_buku = $this->input->post('jmlh_buku');
          $thumbnail =$_FILES["thumb"];
+         $lokasi = $this->input->post('lokasi');
          if($thumbnail!=""){
              $config["upload_path"]="./img/buku";
              $config["allowed_types"]="jpg|jpeg|png";
              $config["encrypt_name"]=TRUE;
-             $config["max_size"]=500;
+             $config["max_size"]=200;
 
              $this->load->library('upload',$config);
              if($this->upload->do_upload('thumb')){
@@ -75,7 +76,8 @@ class Main_controller extends CI_Controller{
             "jumlah_halaman"=>"$jmlh_halaman",
             "penerbit"=>"$penerbit",
             "jumlah"=>"$jmlh_buku",
-            "thumbnail"=>"$thumb_name"
+            "thumbnail"=>"$thumb_name",
+            "lokasi"=>"$lokasi"
         ];
         $this->main_model->add_buku($data);
         redirect("main_controller/data_buku");
@@ -115,12 +117,13 @@ class Main_controller extends CI_Controller{
         $jmlh_buku = $this->input->post('jmlh_buku');
         $thumbnail = $_FILES["thumb"];
         $thumb_name = $this->input->post('thumb_name');
+        $lokasi = $this->input->post('lokasi');
 
         if($thumbnail!=""){
             $config["upload_path"]="./img/buku";
             $config["allowed_types"]="jpg|jpeg|png";
             $config["encrypt_name"]=TRUE;
-            $config["max_size"]=500;
+            $config["max_size"]=200;
 
             $this->load->library('upload',$config);
             if($this->upload->do_upload('thumb')){
@@ -138,7 +141,8 @@ class Main_controller extends CI_Controller{
             "jumlah_halaman"=>$jmlh_halaman,
             "penerbit"=>$penerbit,
             "jumlah"=>$jmlh_buku,
-            "thumbnail"=>$thumb_name
+            "thumbnail"=>$thumb_name,
+            "lokasi"=>$lokasi
         ];
         $this->main_model->update_buku($where,$data);
         redirect('main_controller/data_buku');
@@ -169,7 +173,82 @@ class Main_controller extends CI_Controller{
         }
     }
 
+    public function hal_peminjaman(){
+        $this->load->model('main_model');
+        $data["peminjaman"]=$this->main_model->get_peminjaman();
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/peminjaman',$data);
+        $this->load->view('templates_admin/footer');
+    }
 
+    public function form_tambah_peminjaman(){
+        $kode_buku=$this->input->post('kode_buku');
+        $nim = $this->input->post('nim');
+
+        $data["buku"]=$this->main_model->get_data_buku_by_kode($kode_buku);
+        $data["mahasiswa"]=$this->main_model->get_data_user_by_nim($nim);
+
+        if($data["buku"]==null || $data["mahasiswa"]==null){
+            echo "<script>alert('Data tidak ditemukan !!');window.location.href='hal_peminjaman';</script>";
+            // redirect("main_controller/hal_peminjaman");
+        }else{
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/form_peminjaman',$data);
+            $this->load->view('templates_admin/footer');
+        }  
+    }
+
+    public function tambah_peminjaman(){
+        $idbuku=$this->input->post('id_buku');
+        $idmhs=$this->input->post('id_user');
+        $tgl_pinjam = $this->input->post('tgl_pinjam');
+        $tgl_kembali = $this->input->post('tgl_kembali');
+
+        $data=[
+            "id_buku"=>$idbuku,
+            "id_user"=>$idmhs,
+            "tanggal_pinjam"=>$tgl_pinjam,
+            "batas_pinjam"=>$tgl_kembali
+        ];
+
+        $this->main_model->tambah_peminjaman($data);
+        redirect("main_controller/hal_peminjaman");
+    }
+
+    public function hal_detail_peminjaman($id){
+
+        $data["peminjaman"]=$this->main_model->get_detail_peminjaman($id);
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/detail_peminjaman',$data);
+        $this->load->view('templates_admin/footer');
+    }
+
+    public function selesai_peminjaman($id){
+        $this->load->model('main_model');
+        $result=$this->main_model->get_detail_peminjaman($id);
+        // $denda = time()-strtotime($result["batas_pinjam"]) ;
+
+        if(time()<=strtotime($result["batas_pinjam"])){
+            $denda = 0;
+        }else{
+            $denda = 500*round((((time()-strtotime($result["batas_pinjam"]))/60)/60)/24);
+        }
+        
+        $data = [
+            "id_buku"=>$result["id_buku"],
+            "id_user"=>$result["id_user"],
+            "tanggal_pinjam"=>$result["tanggal_pinjam"],
+            "batas_pinjam"=>$result["batas_pinjam"],
+            "tanggal_kembali"=>date("Y-m-d"),
+            "denda"=>$denda
+        ];
+
+        $this->main_model->selesai_peminjaman($id,$data);
+        redirect("main_controller/hal_peminjaman");   
+    }
 
 }
 
