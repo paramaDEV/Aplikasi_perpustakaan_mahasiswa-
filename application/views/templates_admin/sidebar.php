@@ -49,10 +49,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?=base_url().'main_controller/hal_riwayat_transaksi'?>" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
                 Riwayat Transaksi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?=base_url().'main_controller/hal_data_anggota'?>" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Data Anggota
               </p>
             </a>
           </li>

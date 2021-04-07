@@ -47,6 +47,12 @@ class Main_controller extends CI_Controller{
         }
     }
 
+    public function data_jurusan($id=null){
+        $this->load->model('main_model');
+        echo json_encode($data=$this->main_model->get_jurusan_by_idfak($id));
+        
+    }
+
     public function tambah_buku(){
          $kode = $this->input->post('kd_buku');
          $judul = $this->input->post('judul_buku');
@@ -95,12 +101,14 @@ class Main_controller extends CI_Controller{
         $this->form_validation->set_rules("penerbit","Penerbit","required");
         $this->form_validation->set_rules("jmlh_halaman","Jumlah Halaman","required");
         $this->form_validation->set_rules("jmlh_buku","Jumlah Buku","required");
+        $this->form_validation->set_rules("lokasi","Lokasi","required");
+
 
         if($this->form_validation->run()==FALSE){
-        $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
-        $this->load->view('templates_admin/update_buku',$data);
-        $this->load->view('templates_admin/footer');
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/update_buku',$data);
+            $this->load->view('templates_admin/footer');
         }else{
             $this->update_buku();
         }
@@ -250,6 +258,172 @@ class Main_controller extends CI_Controller{
         redirect("main_controller/hal_peminjaman");   
     }
 
+    public function hal_riwayat_transaksi(){
+        $this->load->model('main_model');
+
+        $data["peminjaman"]=$this->main_model->get_pengembalian();
+
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/riwayat_transaksi',$data);
+        $this->load->view('templates_admin/footer');
+    }
+
+    public function hal_detail_pengembalian($id){
+        $this->load->model('main_model');
+
+        $data["pengembalian"]=$this->main_model->get_detail_pengembalian($id);
+
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/detail_pengembalian',$data);
+        $this->load->view('templates_admin/footer');
+    }
+
+    public function data_anggota($id=null){
+        $this->load->model('main_model');
+        echo json_encode($this->main_model->get_data_anggota($id));
+    }
+
+    public function hal_data_anggota(){
+        $this->load->model('main_model');
+
+        $data["user"]=$this->main_model->get_data_anggota(1);
+        $data["fakultas"]=$this->main_model->get_fakultas();
+
+        $this->form_validation->set_rules("nim","Nomer Induk Mahasiswa","exact_length[8]");
+        $this->form_validation->set_rules("nama","Nama","required");
+        $this->form_validation->set_rules("kelamin","Jenis Kelamin","required");
+        $this->form_validation->set_rules("ttl","Tanggal Lahir","required");
+        $this->form_validation->set_rules("fakultas","Fakultas","required");
+        $this->form_validation->set_rules("jurusan","Jurusan","required");
+        $this->form_validation->set_rules("password","Password","required");
+
+        if($this->form_validation->run()==FALSE){
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/data_anggota',$data);
+            $this->load->view('templates_admin/footer');
+        }else{
+            $this->tambah_anggota();
+        } 
+    }
+
+    public function tambah_anggota(){
+        $nim=$this->input->post("nim");
+        $nama=$this->input->post("nama");
+        $kelamin=$this->input->post("kelamin");
+        $ttl=$this->input->post("ttl");
+        $fakultas=$this->input->post("fakultas");
+        $jurusan=$this->input->post("jurusan");
+        $password=password_hash($this->input->post("password"),PASSWORD_DEFAULT);
+        $foto=$_FILES["foto"];
+
+        if($foto!=""){
+            $config["allowed_types"] = "jpg|jpeg|png";
+            $config["max_size"]=200;
+            $config["upload_path"]="./img/user";
+            $config["encrypt_name"]=true;
+
+            if($this->load->library('upload',$config)){
+                if($this->upload->do_upload("foto")){
+                    $nama_foto=$this->upload->data("file_name");
+                }
+            }
+        }
+
+        $data = [
+            "nama"=>$nama,
+            "nim"=>$nim,
+            "jenis_kelamin"=>$kelamin,
+            "ttl"=>$ttl,
+            "id_fakultas"=>$fakultas,
+            "id_jurusan"=>$jurusan,
+            "kuota_pinjam"=>5,
+            "password"=>$password,
+            "foto"=>$nama_foto
+        ];
+
+        $this->main_model->tambah_anggota($data);
+        redirect("main_controller/hal_data_anggota");
+    }
+
+    public function detail_anggota($id){
+            $data["user"]=$this->main_model->get_detail_anggota($id);
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/detail_anggota',$data);
+            $this->load->view('templates_admin/footer');
+    }
+
+    public function hal_update_anggota($id){
+        $data["user"]=$this->main_model->get_detail_anggota($id);
+        $data["fakultas"]=$this->main_model->get_fakultas();
+        $data["jurusan"]=$this->main_model->get_jurusan();
+
+        $this->form_validation->set_rules("nama","Nama","required");
+        $this->form_validation->set_rules("nim","Nomer Induk","exact_length[8]");
+        $this->form_validation->set_rules("ttl","Tanggal Lahir","required");
+        $this->form_validation->set_rules("nama","Nama","required");
+        $this->form_validation->set_rules("kelamin","Kelamin","required");
+        $this->form_validation->set_rules("fakultas","Fakultas","required");
+        $this->form_validation->set_rules("jurusan","Jurusan","required");
+
+        if($this->form_validation->run()==false){
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/update_anggota',$data);
+            $this->load->view('templates_admin/footer');
+        }else{
+            $this->update_anggota();
+        }
+        
+        
+    }
+
+    public function update_anggota(){
+        $id = $this->input->post('id');
+        $nama = $this->input->post('nama');
+        $nim  = $this->input->post('nim');
+        $ttl  = $this->input->post('ttl');
+        $fakultas = $this->input->post('fakultas');
+        $jurusan  = $this->input->post('jurusan');
+        $kelamin  = $this->input->post('kelamin');
+        $foto = $_FILES["foto"];
+        $nm_foto = $this->input->post('nm_foto');
+
+        if($foto!=""){
+            $config["allowed_types"]="jpg|jpeg|png";
+            $config["max_size"]=200;
+            $config["upload_path"]="./img/user";
+            $config["encrypt_name"]=true;
+            $this->load->library('upload',$config);
+
+            if($this->upload->do_upload("foto")){
+                $nm_foto=$this->upload->data('file_name');
+            }
+        }
+        $where=[
+            "id"=>$id
+        ];
+        $data=[
+            "nama"=>$nama,
+            "nim"=>$nim,
+            "jenis_kelamin"=>$kelamin,
+            "ttl"=>$ttl,
+            "id_fakultas"=>$fakultas,
+            "id_jurusan"=>$jurusan,
+            "foto"=>$nm_foto
+        ];
+        $this->main_model->update_anggota($data,$where);
+        redirect('main_controller/hal_data_anggota');
+         
+    }
+    public function hapus_anggota($id){
+        $this->main_model->hapus_anggota($id);
+        redirect('main_controller/hal_data_anggota');
+        
+    }
 }
 
 ?>

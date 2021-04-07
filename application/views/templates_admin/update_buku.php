@@ -16,6 +16,14 @@
     </div>
     <section class="content ">
     <div class="container">
+    <?php if(validation_errors()):?> 
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         Pastikan isi data dengan lengkap dan benar !!!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endif;?>
       <?= form_open_multipart()?>
         <div class="form-row">
           <div class="form-group col-md-6">

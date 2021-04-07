@@ -19,40 +19,6 @@ date_default_timezone_set('Asia/Jakarta');
     </div>
     <section class="content">
       <div class="container-fluid">
-      <!-- Button trigger modal -->
-      <button type="button" style="margin-top:-10px" class="btn btn-primary mb-3" data-toggle="modal" data-target="#staticBackdrop">
-      <i class="fas fa-plus"></i> Tambah Peminjaman
-      </button>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Tambah Data Peminjaman</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form method="POST" action="<?=base_url()."main_controller/form_tambah_peminjaman"?>">
-                <div class="form-group">
-                  <label for="kode_buku">Kode Buku</label>
-                  <input type="text" class="form-control" id="kode_buku" name="kode_buku"  required placeholder="Kode Buku">
-                </div>
-                <div class="form-group">
-                  <label for="nim">Nomer Induk Mahasiswa</label>
-                  <input type="text" class="form-control" id="nim" name="nim" required placeholder="Nomer Induk Mahasiwa">
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
     <?php if(validation_errors()):?> 
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
          Pastikan isi data dengan lengkap dan benar !!!
@@ -88,7 +54,8 @@ date_default_timezone_set('Asia/Jakarta');
                       <th>NIM</th>
                       <th>Tanggal Pinjam</th>
                       <th>Tanggal Batas Pinjam</th>
-                      <th>Status</th>
+                      <th>Tanggal Kembali</th>
+                      <th>Denda</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -103,19 +70,12 @@ date_default_timezone_set('Asia/Jakarta');
                       <td><?=$x["nim"]?></td>
                       <td><?=$x["tanggal_pinjam"]?></td>
                       <td><?=$x["batas_pinjam"]?></td>
-                      <td><?php if(time() > strtotime($x["batas_pinjam"])){
-                                  echo "<h6 class='text-danger'>Belum kembali dan terlambat</h6>";
-                                  }else{
-                                    echo "<h6 class='text-success'>Belum kembali</h6>";
-                                }
-                      ?>
+                      <td><?=$x["tanggal_kembali"]?></td>
+                      <td><?="Rp ".$x["denda"]?>
                       <!-- <h6>Belum kembali dan terlambat</h6> -->
                       </td>
-                      <td colspan=3><a href=<?=base_url()."main_controller/hal_detail_peminjaman/".$x['id']?>>
+                      <td colspan=2><a href=<?=base_url()."main_controller/hal_detail_pengembalian/".$x['id']?>>
                       <button type="button" class="btn btn-primary" >Detail
-                      </button></a>
-                      <a href=<?=base_url()."main_controller/selesai_peminjaman/".$x['id']?>>
-                      <button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin menyelesaikan peminjaman ?')">Selesai
                       </button></a>
                       </td>
                     </tr>
