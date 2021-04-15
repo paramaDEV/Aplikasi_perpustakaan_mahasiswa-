@@ -125,7 +125,7 @@
                 </table>
               </div>
             </div> 
-            <script src="<?=base_url()."assets/dist/js/data_buku.js"?>"></script>
+            <script src="<?=base_url()."assets/dist/js/data_buku_user.js"?>"></script>
 </div>
 <style>
   table .btn{

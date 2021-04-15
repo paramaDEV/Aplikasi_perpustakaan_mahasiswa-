@@ -4,30 +4,88 @@ class Main_controller extends CI_Controller{
     
     public function index(){
         $this->load->model('main_model');
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('dashboard_user');
-        $this->load->view('templates_user/footer');
+        $this->load->view('auth/auth_header');
+        $this->load->view('auth/login');
+        $this->load->view('auth/auth_footer');
     }
 
-    public function user_page(){
+    public function register(){
+        $this->form_validation->set_rules("nama","Nama",'required');
+        $this->form_validation->set_rules("no_induk","No Induk",'required|exact_length[8]');
+        $this->form_validation->set_rules("kelamin","Jenis Kelamin",'required');
+        $this->form_validation->set_rules("email","Email",'required|valid_email');
+        $this->form_validation->set_rules("ttl","Tanggal Lahir",'required');
+        $this->form_validation->set_rules("password","Password",'required|trim|min_length[8]|matches[repassword]');
+        $this->form_validation->set_rules("repassword","Confirm Password",'required|trim|matches[password]');
+        if($this->form_validation->run()==false){
         $this->load->model('main_model');
-        $this->load->view('templates_user/header');
-        $this->load->view('templates_user/sidebar');
-        $this->load->view('dashboard_user');
-        $this->load->view('templates_user/footer');
+        $this->load->view('auth/auth_header');
+        $this->load->view('auth/register');
+        $this->load->view('auth/auth_footer');
+        }else{
+            $this->register_admin();
+        }
     }
-    public function admin_page(){
+
+    public function register_admin(){
+        $this->load->model("main_model");
+        $data=[
+            "nomer_induk"=>$this->input->post("no_induk"),
+            "nama"=>$this->input->post("nama"),
+            "email"=>$this->input->post("email"),
+            "jenis_kelamin"=>$this->input->post("kelamin"),
+            "ttl"=>$this->input->post("ttl"),
+            "password"=>password_hash($this->input->post("password"),PASSWORD_DEFAULT)
+        ];
+        $this->main_model->register_admin($data);
+        $this->session->set_flashdata('message',"<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        Akun berhasil dibuat !!!
+       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+         <span aria-hidden='tru'>&times;</span>
+       </button>
+     </div>");
+        redirect("main_controller/index");
+    }
+
+
+    public function profil_admin(){
         $this->load->model('main_model');
         $this->load->view('templates_admin/header');
         $this->load->view('templates_admin/sidebar');
-        $this->load->view('dashboard_admin');
+        $this->load->view('templates_admin/profil');
         $this->load->view('templates_admin/footer');
     }
+    public function admin_page(){
+        $this->load->model('main_model');
+        $data["buku"]=$this->main_model->get_data_buku();
+        $data["peminjaman"]=$this->main_model->get_peminjaman();
+        $data["pengembalian"]=$this->main_model->get_pengembalian();
+        $data["hilang"]=$this->main_model->buku_hilang();
+        $data["terlambat"]=$this->main_model->get_peminjaman();
+        $data["jmlPeminjaman"]=$this->total_peminjaman_by_date();
+        $data["today"]=[
+            "peminjaman"=>$this->main_model->get_peminjaman_hari_ini(),
+            "pengembalian"=>$this->main_model->get_pengembalian_hari_ini(),
+            "terlambat"=>$this->main_model->get_terlambat_hari_ini(),
+            "hilang"=>$this->main_model->get_hilang_hari_ini()];
+        $this->load->view('templates_admin/header');
+        $this->load->view('templates_admin/sidebar');
+        $this->load->view('dashboard_admin',$data);
+        $this->load->view('templates_admin/footer');
+    }
+    public function tema(){
+        return $data =$this->main_model->get_tema();
+    } 
+
+    public function data_buku_by_tema($idtema){
+        $this->load->model('main_model');
+        echo json_encode($this->main_model->get_data_buku_by_tema($idtema));
+    }
+
     public function data_buku(){
         $this->load->model('main_model');
         $data["buku"]=$this->main_model->get_data_buku();
-        $data["tema"]=$this->main_model->get_tema();
+        $data["tema"]=$this->tema();
 
         $this->form_validation->set_rules('judul_buku','Judul','required');
         $this->form_validation->set_rules('kd_buku','Kode','exact_length[6]');
@@ -47,6 +105,9 @@ class Main_controller extends CI_Controller{
         }
     }
 
+ 
+
+
     public function data_jurusan($id=null){
         $this->load->model('main_model');
         echo json_encode($data=$this->main_model->get_jurusan_by_idfak($id));
@@ -58,10 +119,10 @@ class Main_controller extends CI_Controller{
          $judul = $this->input->post('judul_buku');
          $tema = $this->input->post('tema');
          $penulis = $this->input->post('penulis');
-         $penerbit = $this->input->post('penerbit');
-         $jmlh_halaman = $this->input->post('jmlh_halaman');
-         $jmlh_buku = $this->input->post('jmlh_buku');
          $thumbnail =$_FILES["thumb"];
+         $penerbit  = $this->input->post('penerbit');
+         $jmlh_halaman =$_FILES["jmlh_halaman"];
+         $jmlh_buku =$_FILES["jmlh_buku"];
          $lokasi = $this->input->post('lokasi');
          if($thumbnail!=""){
              $config["upload_path"]="./img/buku";
@@ -223,6 +284,21 @@ class Main_controller extends CI_Controller{
 
         $this->main_model->tambah_peminjaman($data);
         redirect("main_controller/hal_peminjaman");
+    }
+
+    public function total_peminjaman_by_date(){
+        $this->load->model('main_model');
+        $tanggal=[];
+        $a=[];
+        $jmlPeminjaman=[];
+        for($i=6;$i>=0;$i--){
+            $tanggal[]=date("Y-m-d",time()-(60*60*24*$i));
+        }
+        for($j=0;$j<count($tanggal);$j++){
+            $jmlPeminjaman[]=count($this->main_model->get_peminjaman_by_date($tanggal[$j]));
+        }
+       return $jmlPeminjaman;
+
     }
 
     public function hal_detail_peminjaman($id){
@@ -424,6 +500,27 @@ class Main_controller extends CI_Controller{
         redirect('main_controller/hal_data_anggota');
         
     }
+
+    public function hal_buku_hilang()
+    {
+            $data['buku']=$this->main_model->buku_hilang();
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/buku_hilang',$data);
+            $this->load->view('templates_admin/footer');
+    }
+    public function tambah_buku_hilang($id){
+        $result=$this->main_model->get_detail_peminjaman($id);
+        $data=[
+            "id_buku"=>$result["id_buku"],
+            "tanggal_hilang"=>date("Y-m-d"),
+            "denda"=>50000
+        ];
+        $this->main_model->tambah_buku_hilang($data);
+        $this->main_model->hapus_peminjaman($result["id"]);
+        redirect("main_controller/hal_buku_hilang");
+    }
+
 }
 
 ?>

@@ -19,7 +19,7 @@ $(document).ready(()=>{
         xhr.send();
     };
 
-    generate_jurusan(1,"#jurusan");
+    // generate_jurusan(1,"#jurusan");
     
     $("#fakultas").change(()=>{
         generate_jurusan($("#fakultas").val(),"#jurusan");

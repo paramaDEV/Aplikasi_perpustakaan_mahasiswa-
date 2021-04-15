@@ -17,7 +17,7 @@
     <section class="content">
       <div class="container-fluid">
               <div class="card-body">
-              <div class="card mx-auto" id="detail" style="">
+              <div class="card mx-auto" id="detail" >
                 <div class="image mx-auto" style="overflow:hidden" >
                   <img src="<?php if($user["foto"]==""){
                       echo base_url()."img/user/profile.png";
@@ -33,7 +33,7 @@
                     <li class="list-group-item">Jenis Kelamin : <?=$user["jenis_kelamin"]?></li>
                     <li class="list-group-item">Fakultas : <?=$user["nm_fakultas"]?></li>
                     <li class="list-group-item">Jurusan : <?=$user["nm_jurusan"]?></li>
-                    <li class="list-group-item">Kuota Pinjam : <?=$user["kuota_pinjam"]?></li>
+                    <li class="list-group-item">Kuota Pinjam Tersisa: <?=$user["kuota_pinjam"]?></li>
 
                   </ul>
                   <div class="card-body">

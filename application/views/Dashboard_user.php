@@ -116,24 +116,7 @@
                       <th scope="col">Status</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>1264492851</td>
-                      <td>Pemrograman JAVA</td>
-                      <td>2020-02-03</td>
-                      <td>2020-02-24</td>
-                      <td><button type="button" class="btn btn-danger">Terlambat</button></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>1290492851</td>
-                      <td>Internet of Things With Raspberry</td>
-                      <td>2020-02-05</td>
-                      <td>2020-02-28</td>
-                      <td><button type="button" class="btn btn-danger">Terlambat</button></td>
-                    </tr>
-                  </tbody>
+                 
                 </table>
               </div>
             </div>

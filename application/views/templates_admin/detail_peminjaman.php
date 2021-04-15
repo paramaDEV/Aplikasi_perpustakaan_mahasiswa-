@@ -17,7 +17,7 @@
     <section class="content">
       <div class="container-fluid">
       <div class="card-body">
-              <div class="card mx-auto" id="detail" style="">
+              <div class="card mx-auto" id="detail" >
                 <div class="image mx-auto" style="overflow:hidden" >
                   <img src="<?= base_url()."img/buku/".$peminjaman["thumbnail"];?>" 
                   class="thumbnail mx-auto mt-3"  alt="Cover Buku">
@@ -33,6 +33,7 @@
                     <li class="list-group-item"><b>Batas Pinjam</b> : <?=$peminjaman["batas_pinjam"]?></li>
                   </ul>
                   <a href=<?=base_url()."main_controller/selesai_peminjaman/".$peminjaman['id']?> onclick="return confirm('Apakah anda yakin menyelesaikan peminjaman ?')"><h6 class="text-danger m-3">Selesai Peminjaman</h6></a>
+                  <a href=<?=base_url()."main_controller/tambah_buku_hilang/".$peminjaman['id']?> onclick="return confirm('Apakah anda yakin menambahkan ke data buku hilang ?')"><b><p class="fw-bolder text-danger m-3">Tambahkan ke Data Hilang </p></b></a>
           </div>
       </div>
     </section>

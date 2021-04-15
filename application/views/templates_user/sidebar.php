@@ -1,23 +1,22 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary " style="background-color: #01579b;">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src=<?=base_url()."assets/dist/img/AdminLTELogo.png"?> alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">Aplikasi Perpustakaan</span>
-    </a>
+    <div class="brand-link "  style="background-color: #06408c; border:none; ">
+    <i class="nav-icon fas fa-landmark ml-3"></i><span class="brand-text font-weight-light ml-3" >Aplikasi Perpustakaan</span>
+    </div>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" >
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src=<?=base_url()."assets/dist/img/user2-160x160.jpg"?> class="img-circle elevation-2" alt="User Image">
+      <div class=" mt-3 pb-3 mb-3 d-flex">
+        <div class="image" >
+            <img src=<?=base_url()."img/user/profile.png"?> class="" style="height:50px;width:50px">
         </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+        <div class="info ml-3">
+          <a class="d-block"><b>Alexander Pierce</b></a>
+          <a class="d-block">User</a>
         </div>
       </div>
 
@@ -25,7 +24,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?=base_url()."user_controller/"?>" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
@@ -33,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?=base_url()."user_controller/data_buku"?>" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Cari Buku
@@ -41,7 +40,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?=base_url()."user_controller/hal_peminjaman"?>" class="nav-link">
               <i class="nav-icon fas fa-layer-group"></i>
               <p>
                 Pinjaman Aktif
@@ -49,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?=base_url()."user_controller/hal_riwayat_transaksi"?>" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
                 Riwayat
@@ -57,7 +56,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?=base_url()."user_controller/profil_user"?>" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Profil

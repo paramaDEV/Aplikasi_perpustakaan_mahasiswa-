@@ -27,7 +27,7 @@
                   class="thumbnail mx-auto mt-3"  alt="Cover Buku">
                 </div>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Judul</b> : <?=$buku["judul"]?> </li>
+                  <li class="list-group-item"><b>Judul</b> : <?=$buku["judul"]?> </li>
                     <li class="list-group-item"><b>Kode</b>  : <?=$buku["kode_buku"]?></li>
                     <li class="list-group-item"><b>Tema</b>  : <?=$buku["tema"]?></li>
                     <li class="list-group-item"><b>Penerbit</b>  : <?=$buku["penerbit"]?></li>

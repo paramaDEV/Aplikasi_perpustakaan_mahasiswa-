@@ -112,7 +112,7 @@ date_default_timezone_set('Asia/Jakarta');
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                  Data Buku
+                 
                 </h3>
                 <div class="card-tools">
                   <ul class="pagination pagination-sm">

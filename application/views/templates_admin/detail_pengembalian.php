@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Detail Peminjaman</h1>
+            <h1 class="m-0 text-dark">Detail Pengembalian</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -17,7 +17,7 @@
     <section class="content">
       <div class="container-fluid">
       <div class="card-body">
-              <div class="card mx-auto" id="detail" style="">
+              <div class="card mx-auto" id="detail" >
                 <div class="image mx-auto" style="overflow:hidden" >
                   <img src="<?= base_url()."img/buku/".$pengembalian["thumbnail"];?>" 
                   class="thumbnail mx-auto mt-3"  alt="Cover Buku">

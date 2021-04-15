@@ -5,12 +5,12 @@ date_default_timezone_set('Asia/Jakarta');
  <div class="content-header mt-0">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Riwayat Transaksi</h1>
+          <div class="col-sm-6"> 
+            <h1 class="m-0 text-dark">Daftar Buku Hilang</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Riwayat Transaksi</a></li>
+              <li class="breadcrumb-item"><a href="#">Daftar Buku Hilang</a></li>
               <li class="breadcrumb-item active">Admin Page</li>
             </ol>
           </div>
@@ -51,32 +51,22 @@ date_default_timezone_set('Asia/Jakarta');
                     <tr>
                       <th>#</th>
                       <th>Kode Buku</th>
-                      <th>NIM</th>
-                      <th>Tanggal Pinjam</th>
-                      <th>Tanggal Batas Pinjam</th>
-                      <th>Tanggal Kembali</th>
+                      <th>Judul Buku</th>
+                      <th>Tanggal Hilang</th>
                       <th>Denda</th>
-                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php 
                   $no=1;
-                  foreach($peminjaman as $x):
+                  foreach($buku as $x):
                   ?>
                     <tr>
                       <th scope="row"><?=$no++?></th>
                       <td><?=$x["kode_buku"]?></td>
-                      <td><?=$x["nim"]?></td>
-                      <td><?=$x["tanggal_pinjam"]?></td>
-                      <td><?=$x["batas_pinjam"]?></td>
-                      <td><?=$x["tanggal_kembali"]?></td>
-                      <td><?="Rp ".$x["denda"]?>
-                      <!-- <h6>Belum kembali dan terlambat</h6> -->
-                      </td>
-                      <td colspan=2><a href=<?=base_url()."main_controller/hal_detail_pengembalian/".$x['id']?>>
-                      <button type="button" class="btn btn-primary" >Detail
-                      </button></a>
+                      <td><?=$x["judul"]?></td>
+                      <td><?=$x["tanggal_hilang"]?></td>
+                      <td><?="Rp. ".$x["denda"]?></td></a>
                       </td>
                     </tr>
                     <?php endforeach;?>

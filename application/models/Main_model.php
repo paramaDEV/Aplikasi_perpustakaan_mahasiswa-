@@ -8,6 +8,10 @@ class Main_model extends CI_Model{
        return $this->db->get()->result_array();
    }
 
+   public function register_admin($data){
+       $this->db->insert('admin',$data);
+   }
+
    public function get_tema(){
        return $this->db->get('jenis_tema')->result_array();
    }
@@ -28,6 +32,9 @@ class Main_model extends CI_Model{
        $this->db->insert('data_buku',$data);
    }
 
+   public function get_data_buku_by_tema($idtema){
+       return $this->db->get_where('data_buku',["id_tema"=>$idtema])->result_array();
+   }
    public function hapus($where){
        $this->db->delete('data_buku',$where);
    }
@@ -60,6 +67,10 @@ class Main_model extends CI_Model{
        return $this->db->get()->result_array();
    }
 
+   public function get_peminjaman_by_date($date){
+        return $this->db->get_where('peminjaman',["tanggal_pinjam"=>$date])->result_array();
+   }
+
    public function tambah_peminjaman($data){
        $this->db->insert("peminjaman",$data);
    }
@@ -74,6 +85,10 @@ class Main_model extends CI_Model{
    public function selesai_peminjaman($id_peminjaman,$data){
        $this->db->insert("pengembalian",$data);
        $this->db->delete("peminjaman",["id"=>$id_peminjaman]);
+   }
+
+   public function hapus_peminjaman($id){
+    $this->db->delete("peminjaman",["id"=>$id]);
    }
 
    public function get_pengembalian(){
@@ -119,7 +134,48 @@ class Main_model extends CI_Model{
         $this->db->where($where);
         $this->db->update('user',$data);
     }
+    public function buku_hilang(){
+        $this->db->select("*");
+        $this->db->from("buku_hilang");
+        $this->db->join("data_buku","buku_hilang.id_buku=data_buku.id");
+
+        return $this->db->get()->result_array();
+    }
+    public function tambah_buku_hilang($data){
+        $this->db->insert('buku_hilang',$data);
+    }
+
+    public function get_peminjaman_hari_ini(){
+        return $this->db->get_where('peminjaman',["tanggal_pinjam"=>date("Y-m-d")])->result_array();
+    }
+    public function get_peminjaman_dan_terlambat(){
+        $arr = [];
+       $data= $this->db->get('peminjaman')->result_array();
+       foreach($data as $x){
+           if(strtotime($x["batas_pinjam"])<time()){
+               $arr[]=$x; 
+            }
+       }
+       return $arr;
+    }
+    public function get_terlambat_hari_ini(){
+        $arr = [];
+        $data = $this->db->get('pengembalian')->result_array();
+        foreach($data as $x){
+            if(strtotime($x["batas_pinjam"])<strtotime($x["tanggal_kembali"]) && strtotime($x["tanggal_kembali"])==strtotime(date("Y-m-d"))){
+                $arr[]=$x; 
+             }
+        }
+        return $arr;
+    }
+
+    public function get_hilang_hari_ini(){
+        return $this->db->get_where('buku_hilang',["tanggal_hilang"=>date("Y-m-d")])->result_array();
+    }
  
+    public function get_pengembalian_hari_ini(){
+        return $this->db->get_where('pengembalian',["tanggal_kembali"=>date("Y-m-d")])->result_array();
+    }
 }
 
 ?>
