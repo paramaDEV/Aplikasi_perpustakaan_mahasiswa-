@@ -14,7 +14,7 @@
         <div class="image" >
             <img src=<?=base_url()."img/user/profile.png"?> class="" style="height:50px;width:50px">
         </div>
-        <div class="info ml-3">
+        <div class="info ml-3 text-white" >
           <a class="d-block"><b>Alexander Pierce</b></a>
           <a class="d-block">User</a>
         </div>
@@ -24,7 +24,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href=<?=base_url()."main_controller/admin_page"?> class="nav-link">
+            <a href=<?=base_url()."admin_controller/index"?> class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Dashboard
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href=<?=base_url()."main_controller/data_buku"?> class="nav-link">
+            <a href=<?=base_url()."admin_controller/data_buku"?> class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                Data Buku
@@ -40,7 +40,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href=<?=base_url()."main_controller/hal_peminjaman"?>  class="nav-link">
+            <a href=<?=base_url()."admin_controller/hal_peminjaman"?>  class="nav-link">
               <i class="nav-icon fas fa-layer-group"></i>
               <p>
                 Peminjaman
@@ -48,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?=base_url().'main_controller/hal_riwayat_transaksi'?>" class="nav-link">
+            <a href="<?=base_url().'admin_controller/hal_riwayat_transaksi'?>" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
                 Riwayat Transaksi
@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?=base_url().'main_controller/hal_buku_hilang'?>" class="nav-link">
+            <a href="<?=base_url().'admin_controller/hal_buku_hilang'?>" class="nav-link">
               <i class="nav-icon fas fa-exclamation-circle"></i>
               <p>
                 Data Buku Hilang
@@ -64,7 +64,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?=base_url().'main_controller/hal_data_anggota'?>" class="nav-link">
+            <a href="<?=base_url().'admin_controller/hal_data_anggota'?>" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Data Anggota
@@ -72,7 +72,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?=base_url().'main_controller/profil_admin'?>" class="nav-link">
+            <a href="<?=base_url().'admin_controller/profil_admin'?>" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Profil

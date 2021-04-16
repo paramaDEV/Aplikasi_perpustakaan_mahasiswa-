@@ -1,11 +1,15 @@
 <?php
 class User_controller extends CI_Controller{
     public function index(){
+        if($this->session->userdata("nomer_induk")!=null){
         $this->load->model('main_model');
         $this->load->view('templates_user/header');
         $this->load->view('templates_user/sidebar');
         $this->load->view('dashboard_user');
         $this->load->view('templates_user/footer');
+        }else{
+            redirect('main_controller');
+        }
     }
 
     public function tema(){

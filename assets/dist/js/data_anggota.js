@@ -18,7 +18,7 @@ $(document).ready(()=>{
 
             }
         }
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/main_controller/data_jurusan/${key}`,true);
+        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/admin_controller/data_jurusan/${key}`,true);
         xhr.send();
     };
 
@@ -50,14 +50,11 @@ $(document).ready(()=>{
                     <td>${e.ttl}</td>
                     <td>${e.nm_jurusan}</td>
                     <td>${e.nm_fakultas}</td>
-                    <td colspan=3><a href='${base_url}main_controller/detail_anggota/${e.id}'>
+                    <td colspan=3><a href='${base_url}admin_controller/detail_anggota/${e.id}'>
                     <button type='button' class='btn btn-primary' >Detail
                     </button></a>
-                    <a href='${base_url}main_controller/hal_update_anggota/${e.id}'>
+                    <a href='${base_url}admin_controller/hal_update_anggota/${e.id}'>
                     <button type='button' class='btn btn-success' >Edit
-                    </button></a>
-                    <a href='${base_url}main_controller/hapus_anggota/${e.id}'>
-                    <button type='button' class='btn btn-danger' onclick="return confirm('Anda yakin menghapus data ini ?');">Hapus
                     </button></a>
                     </td>
                   </tr>`;
@@ -66,7 +63,7 @@ $(document).ready(()=>{
                 
             }
         }
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/main_controller/data_anggota/${id}`,true);
+        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/admin_controller/data_anggota/${id}`,true);
         xhr.send();
     }
 

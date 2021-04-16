@@ -65,7 +65,7 @@ date_default_timezone_set('Asia/Jakarta');
                       <input type="text" class="form-control" readonly id="tgl_kembali" name="tgl_kembali" value="<?= date("Y-m-d",time()+(60*60*24*14))?>">
                     </div>
                   </div>
-                  <a href="<?=base_url().'main_controller/hal_peminjaman'?>"><button type="button" class="btn btn-danger">Cancel</button></a>
+                  <a href="<?=base_url().'admin_controller/hal_peminjaman'?>"><button type="button" class="btn btn-danger">Cancel</button></a>
                   <button type="submit" class="btn btn-primary" onclick="return confirm('Yakin menambahkan data ini ?');">Save</button>
                 </form>
               </div>

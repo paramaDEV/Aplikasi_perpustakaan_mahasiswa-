@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Admin Page</title>
+  <title>User's Page</title>
   <script src=<?=base_url()."assets/plugins/jquery/jquery.min.js"?>></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href=<?=base_url()."assets/plugins/fontawesome-free/css/all.min.css"?>>
@@ -43,7 +43,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link"  href="#" role="button"><i class="fas fa-sign-out-alt"></i> Logout </a>
+        <a class="nav-link"  href="<?=base_url().'main_controller/logout'?>" onclick="return confirm('Apakah anda yakin ingin logout ?')" role="button"><i class="fas fa-sign-out-alt"></i> Logout </a>
       </li>
     </ul>
   </nav>

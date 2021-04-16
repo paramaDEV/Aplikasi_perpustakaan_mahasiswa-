@@ -110,10 +110,10 @@ date_default_timezone_set('Asia/Jakarta');
                       ?>
                       <!-- <h6>Belum kembali dan terlambat</h6> -->
                       </td>
-                      <td colspan=3><a href=<?=base_url()."main_controller/hal_detail_peminjaman/".$x['id']?>>
+                      <td colspan=3><a href=<?=base_url()."admin_controller/hal_detail_peminjaman/".$x['id']?>>
                       <button type="button" class="btn btn-primary" >Detail
                       </button></a>
-                      <a href=<?=base_url()."main_controller/selesai_peminjaman/".$x['id']?>>
+                      <a href=<?=base_url()."admin_controller/selesai_peminjaman/".$x['id']?>>
                       <button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda yakin menyelesaikan peminjaman ?')">Selesai
                       </button></a>
                       </td>

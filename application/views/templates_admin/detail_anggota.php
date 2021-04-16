@@ -27,18 +27,18 @@
                   class="thumbnail mx-auto mt-3"  alt="Cover Buku">
                 </div>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Nama : <?=$user["nama"]?></li>
-                    <li class="list-group-item">NIM : <?=$user["nim"]?></li>
-                    <li class="list-group-item">TTL : <?=$user["ttl"]?></li>
-                    <li class="list-group-item">Jenis Kelamin : <?=$user["jenis_kelamin"]?></li>
-                    <li class="list-group-item">Fakultas : <?=$user["nm_fakultas"]?></li>
-                    <li class="list-group-item">Jurusan : <?=$user["nm_jurusan"]?></li>
-                    <li class="list-group-item">Kuota Pinjam Tersisa: <?=$user["kuota_pinjam"]?></li>
+                    <li class="list-group-item"><b>Nama :</b> <?=$user["nama"]?></li>
+                    <li class="list-group-item"><b>NIM :</b> <?=$user["nim"]?></li>
+                    <li class="list-group-item"><b>TTL :</b> <?=$user["ttl"]?></li>
+                    <li class="list-group-item"><b>Jenis Kelamin :</b> <?=$user["jenis_kelamin"]?></li>
+                    <li class="list-group-item"><b>Fakultas :</b> <?=$user["nm_fakultas"]?></li>
+                    <li class="list-group-item"><b>Jurusan :</b> <?=$user["nm_jurusan"]?></li>
+                    <li class="list-group-item"><b>Kuota Pinjam Tersisa:</b> <?=$user["kuota_pinjam"]?></li>
 
                   </ul>
                   <div class="card-body">
-                    <b><a href=<?=base_url()."main_controller/hal_update_anggota/".$user["id"]?> class="card-link mr-3">Edit</a></b>
-                    <b><a href=<?=base_url()."main_controller/hapus_anggota/".$user["id"]?> class="card-link text-danger"
+                    <b><a href=<?=base_url()."admin_controller/hal_update_anggota/".$user["id"]?> class="card-link mr-3">Edit</a></b>
+                    <b><a href=<?=base_url()."admin_controller/hapus_anggota/".$user["id"]?> class="card-link text-danger"
                     onclick="return confirm('Apakah anda yakin menghapus data ini ?')">Delete</a></b>
                   </div>
                 </div>

@@ -37,7 +37,7 @@ $(document).ready(()=>{
             }
         }
         
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/main_controller/data_buku_by_tema/${idtema}`,true);
+        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/admin_controller/data_buku_by_tema/${idtema}`,true);
         xhr.send(); 
     };
     generateTable(1);

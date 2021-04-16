@@ -20,22 +20,19 @@ $(document).ready(()=>{
                     <td>${no++}</td>
                     <td>${kode_buku}</td>
                     <td>${judul}</td>
-                    <td colspan=3><a href='${base_url}main_controller/detail_buku/${id}'>
+                    <td colspan=3><a href='${base_url}admin_controller/detail_buku/${id}'>
                     <button type="button" class="btn btn-primary" >Detail
                     </button></a>
-                    <a href='${base_url}main_controller/hal_update_buku/${id}'>
+                    <a href='${base_url}admin_controller/hal_update_buku/${id}'>
                     <button type="button" class="btn btn-success" >Edit
                     </button></a>
-                    <a href='${base_url}main_controller/hapus_buku/${id}'>
-                    <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data ini ?');">Delete
-                    </button></a></td>
                 </tr>`;
                 });
                $("table").html(table);
             }
         }
         
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/main_controller/data_buku_by_tema/${idtema}`,true);
+        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/admin_controller/data_buku_by_tema/${idtema}`,true);
         xhr.send(); 
     };
     generateTable(1);

@@ -74,7 +74,7 @@ date_default_timezone_set('Asia/Jakarta');
                       <td><?="Rp ".$x["denda"]?>
                       <!-- <h6>Belum kembali dan terlambat</h6> -->
                       </td>
-                      <td colspan=2><a href=<?=base_url()."main_controller/hal_detail_pengembalian/".$x['id']?>>
+                      <td colspan=2><a href=<?=base_url()."admin_controller/hal_detail_pengembalian/".$x['id']?>>
                       <button type="button" class="btn btn-primary" >Detail
                       </button></a>
                       </td>

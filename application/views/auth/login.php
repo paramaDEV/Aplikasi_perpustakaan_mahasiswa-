@@ -18,12 +18,14 @@
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang di sistem Informasi Perpustakaan</h1>
                                     </div>
                                     <?=$this->session->flashdata("message")?>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="<?=base_url().'main_controller/index'?>">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="no_induk" name='no_induk' placeholder="Nomer Induk">
+                                            <input type="text" class="form-control form-control-user" id="no_induk" name='no_induk' value="<?=set_value('no_induk')?>" placeholder="Nomer Induk">
+                                            <?=form_error('no_induk',"<small class='text-danger ml-3' style='margin-bottom:-15px'>","</small>")?>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                            <?=form_error('password',"<small class='text-danger ml-3' style='margin-bottom:-15px'>","</small>")?>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

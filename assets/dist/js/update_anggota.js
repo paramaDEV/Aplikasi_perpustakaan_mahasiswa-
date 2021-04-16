@@ -15,7 +15,7 @@ $(document).ready(()=>{
 
             }
         }
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/main_controller/data_jurusan/${key}`,true);
+        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/admin_controller/data_jurusan/${key}`,true);
         xhr.send();
     };
 

@@ -32,8 +32,8 @@
                     <li class="list-group-item"><b>Tanggal Pinjam</b> : <?=$peminjaman["tanggal_pinjam"]?></li>
                     <li class="list-group-item"><b>Batas Pinjam</b> : <?=$peminjaman["batas_pinjam"]?></li>
                   </ul>
-                  <a href=<?=base_url()."main_controller/selesai_peminjaman/".$peminjaman['id']?> onclick="return confirm('Apakah anda yakin menyelesaikan peminjaman ?')"><h6 class="text-danger m-3">Selesai Peminjaman</h6></a>
-                  <a href=<?=base_url()."main_controller/tambah_buku_hilang/".$peminjaman['id']?> onclick="return confirm('Apakah anda yakin menambahkan ke data buku hilang ?')"><b><p class="fw-bolder text-danger m-3">Tambahkan ke Data Hilang </p></b></a>
+                  <a href=<?=base_url()."admin_controller/selesai_peminjaman/".$peminjaman['id']?> onclick="return confirm('Apakah anda yakin menyelesaikan peminjaman ?')"><h6 class="text-danger m-3">Selesai Peminjaman</h6></a>
+                  <a href=<?=base_url()."admin_controller/tambah_buku_hilang/".$peminjaman['id']?> onclick="return confirm('Apakah anda yakin menambahkan ke data buku hilang ?')"><b><p class="fw-bolder text-danger m-3">Tambahkan ke Data Hilang </p></b></a>
           </div>
       </div>
     </section>

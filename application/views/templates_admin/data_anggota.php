@@ -56,7 +56,7 @@ date_default_timezone_set('Asia/Jakarta');
           </button>
         </div>
         <div class="modal-body">
-        <?= form_open_multipart();?>
+        <?= form_open_multipart("admin_controller/hal_data_anggota");?>
                 <div class="form-group">
                   <label for="nim">Nomer Induk Mahasiswa</label>
                   <input type="text" class="form-control" id="nim" name="nim"   placeholder="Nomer induk mahasiswa">
