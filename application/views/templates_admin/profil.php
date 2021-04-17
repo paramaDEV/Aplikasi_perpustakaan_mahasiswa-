@@ -27,30 +27,36 @@
             <div class="card card-primary ">
               <div class="card-body box-profile">
                 <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle"
-                       src="<?=base_url().'img/admin/profile.png'?>">
+                <center><div class="foto" style="border-radius:50%;width:250px;height:250px;overflow:hidden">
+                <img style="width:250px"
+                      <?php if($admin["foto"]==null){?>
+                       src="<?=base_url().'img/admin/profile.png'?>"
+                       <?php }else{ ?>
+                        src="<?=base_url().'img/admin/'.$admin['foto']?>"
+                       <?php } ?>>
+                       </div></center>
                 </div>
 
-                <h3 class="profile-username text-center">Nama Lengkap</h3>
+                <h3 class="profile-username text-center"><?=$admin['nama']?></h3>
 
                 <p class="text-muted text-center">Admininstrator</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Nomer Induk </b> <a class="float-right">Lorem</a>
+                    <b>Nomer Induk </b> <a class="float-right"><?=$admin['nomer_induk']?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Nama</b> <a class="float-right">Lorem</a>
+                    <b>Nama</b> <a class="float-right"><?=$admin['nama']?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Jenis Kelamin</b> <a class="float-right">Lorem</a>
+                    <b>Jenis Kelamin</b> <a class="float-right"><?=$admin['jenis_kelamin']?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Tanggal Lahir</b> <a class="float-right">Lorem</a>
+                    <b>Tanggal Lahir</b> <a class="float-right"><?=$admin['ttl']?></a>
                   </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block" style="width : 100px">Edit</a>
+                <a href="<?=base_url().'admin_controller/hal_update_profil'?>" class="btn btn-primary btn-block" style="width : 100px">Edit</a>
               </div>
               <!-- /.card-body -->
             </div>

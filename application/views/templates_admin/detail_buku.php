@@ -38,8 +38,6 @@
                   </ul>
                   <div class="card-body">
                     <b><a href=<?=base_url()."admin_controller/hal_update_buku/".$buku["id"]?> class="card-link mr-3">Edit</a></b>
-                    <b><a href=<?=base_url()."admin_controller/hapus_buku/".$buku["id"]?> class="card-link text-danger"
-                    onclick="return confirm('Apakah anda yakin menhapus data ini ?')">Delete</a></b>
                   </div>
                 </div>
             </div>

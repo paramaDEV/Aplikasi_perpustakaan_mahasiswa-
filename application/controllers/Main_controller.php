@@ -25,7 +25,8 @@ class Main_controller extends CI_Controller{
         if($user!=null){
             if(password_verify($password,$user["password"])){
                 $data=[
-                    "nomer_induk"=>$user["nim"]
+                    "nomer_induk"=>$user["nim"],
+                    "id"=>$user["id"]
                 ];
                 $this->session->set_userdata($data);
                 redirect("user_controller/index");
@@ -41,7 +42,8 @@ class Main_controller extends CI_Controller{
         }else if($admin!=null){
             if(password_verify($password,$admin["password"])){
                 $data=[
-                    "nomer_induk"=>$admin["nomer_induk"]
+                    "nomer_induk"=>$admin["nomer_induk"],
+                    "id"=>$admin["id"]
                 ];
                 $this->session->set_userdata($data);
                 redirect("admin_controller/index");
@@ -52,7 +54,7 @@ class Main_controller extends CI_Controller{
                     <span aria-hidden='tru'>&times;</span>
                 </button>
                 </div>");
-            redirect("admin_controller/index");
+            redirect("main_controller/index");
             }
         }else{
             $this->session->set_flashdata('message',"<div class='alert alert-danger alert-dismissible fade show' role='alert'>
@@ -106,6 +108,7 @@ class Main_controller extends CI_Controller{
 
     public function logout(){
         $this->session->unset_userdata("nomer_induk");
+        $this->session->unset_userdata("id");
         $this->session->set_flashdata('message',"<div class='alert alert-success alert-dismissible fade show' role='alert'>
         Anda telah logout !!!
        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>

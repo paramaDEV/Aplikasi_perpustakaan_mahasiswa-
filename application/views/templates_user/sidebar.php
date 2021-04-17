@@ -12,10 +12,15 @@
       <!-- Sidebar user panel (optional) -->
       <div class=" mt-3 pb-3 mb-3 d-flex">
         <div class="image" >
-            <img src=<?=base_url()."img/user/profile.png"?> class="" style="height:50px;width:50px">
+        <img class="ml-1" style="width:50px;height:50px;border-radius:50%"
+                      <?php if($user["foto"]==null){?>
+                       src="<?=base_url().'img/user/profile.png'?>"
+                       <?php }else{ ?>
+                        src="<?=base_url().'img/user/'.$user['foto']?>"
+                       <?php } ?>>
         </div>
         <div class="info ml-3">
-          <a class="d-block"><b>Alexander Pierce</b></a>
+          <a class="d-block"><b><?=$user["nama"]?></b></a>
           <a class="d-block">User</a>
         </div>
       </div>

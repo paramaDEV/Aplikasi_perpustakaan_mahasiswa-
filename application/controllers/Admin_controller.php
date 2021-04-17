@@ -4,7 +4,9 @@ class Admin_controller extends CI_Controller{
 
     public function index(){
         $this->load->model('main_model');
-        if($this->session->userdata("nomer_induk")!=null){
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["buku"]=$this->main_model->get_data_buku();
         $data["peminjaman"]=$this->main_model->get_peminjaman();
         $data["pengembalian"]=$this->main_model->get_pengembalian();
@@ -17,7 +19,7 @@ class Admin_controller extends CI_Controller{
             "terlambat"=>$this->main_model->get_terlambat_hari_ini(),
             "hilang"=>$this->main_model->get_hilang_hari_ini()];
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/sidebar',$data);
         $this->load->view('dashboard_admin',$data);
         $this->load->view('templates_admin/footer');
         }else{
@@ -26,11 +28,17 @@ class Admin_controller extends CI_Controller{
     }
 
     public function profil_admin(){
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
         $this->load->model('main_model');
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
-        $this->load->view('templates_admin/profil');
+        $this->load->view('templates_admin/sidebar',$data);
+        $this->load->view('templates_admin/profil',$data);
         $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
     
     public function tema(){
@@ -43,6 +51,10 @@ class Admin_controller extends CI_Controller{
     }
 
     public function data_buku(){
+        $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $this->load->model('main_model');
         $data["buku"]=$this->main_model->get_data_buku();
         $data["tema"]=$this->tema();
@@ -57,11 +69,13 @@ class Admin_controller extends CI_Controller{
 
         if($this->form_validation->run()==FALSE){
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/data_buku',$data);
             $this->load->view('templates_admin/footer');
         }else{
            $this->tambah_buku();
+        }}else{
+            redirect("main_controller");
         }
     }
 
@@ -112,6 +126,9 @@ class Admin_controller extends CI_Controller{
 
     public function hal_update_buku($id){
         $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["buku"]=$this->main_model->get_detail_buku($id);
         $data["tema"]=$this->main_model->get_tema();
 
@@ -127,15 +144,17 @@ class Admin_controller extends CI_Controller{
 
         if($this->form_validation->run()==FALSE){
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/update_buku',$data);
             $this->load->view('templates_admin/footer');
         }else{
-            $this->update_buku();
+            $this->_update_buku();
+        }}else{
+            redirect("main_controller");
         }
     }
 
-    public function update_buku(){
+    private function _update_buku(){
         $id = $this->input->post('id_buku');
         $judul = $this->input->post('judul');
         $kode  = $this->input->post('kode_buku');
@@ -186,11 +205,18 @@ class Admin_controller extends CI_Controller{
     }
 
     public function detail_buku($id){
+        $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["buku"]=$this->main_model->get_detail_buku($id);
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/sidebar',$data);
         $this->load->view('templates_admin/detail_buku',$data);
         $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
 
     public function detail_thumbnail($id){
@@ -204,17 +230,26 @@ class Admin_controller extends CI_Controller{
 
     public function hal_peminjaman(){
         $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["peminjaman"]=$this->main_model->get_peminjaman();
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/sidebar',$data);
         $this->load->view('templates_admin/peminjaman',$data);
         $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
 
     public function form_tambah_peminjaman(){
+        $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $kode_buku=$this->input->post('kode_buku');
         $nim = $this->input->post('nim');
-
         $data["buku"]=$this->main_model->get_data_buku_by_kode($kode_buku);
         $data["mahasiswa"]=$this->main_model->get_data_user_by_nim($nim);
 
@@ -223,10 +258,13 @@ class Admin_controller extends CI_Controller{
             // redirect("main_controller/hal_peminjaman");
         }else{
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/form_peminjaman',$data);
             $this->load->view('templates_admin/footer');
-        }  
+        }
+    } else{
+            redirect("main_controller");
+        }
     }
 
     public function tambah_peminjaman(){
@@ -262,12 +300,18 @@ class Admin_controller extends CI_Controller{
     }
 
     public function hal_detail_peminjaman($id){
-
+        $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["peminjaman"]=$this->main_model->get_detail_peminjaman($id);
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/sidebar',$data);
         $this->load->view('templates_admin/detail_peminjaman',$data);
         $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
 
     public function selesai_peminjaman($id){
@@ -296,13 +340,18 @@ class Admin_controller extends CI_Controller{
 
     public function hal_riwayat_transaksi(){
         $this->load->model('main_model');
-
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["peminjaman"]=$this->main_model->get_pengembalian();
 
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/sidebar',$data);
         $this->load->view('templates_admin/riwayat_transaksi',$data);
         $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
 
     public function hal_detail_pengembalian($id){
@@ -323,10 +372,11 @@ class Admin_controller extends CI_Controller{
 
     public function hal_data_anggota(){
         $this->load->model('main_model');
-
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
         $data["user"]=$this->main_model->get_data_anggota(1);
         $data["fakultas"]=$this->main_model->get_fakultas();
-
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $this->form_validation->set_rules("nim","Nomer Induk Mahasiswa","required|exact_length[8]");
         $this->form_validation->set_rules("nama","Nama","required");
         $this->form_validation->set_rules("kelamin","Jenis Kelamin","required");
@@ -337,12 +387,15 @@ class Admin_controller extends CI_Controller{
 
         if($this->form_validation->run()==FALSE){
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/data_anggota',$data);
             $this->load->view('templates_admin/footer');
         }else{
             $this->tambah_anggota();
         } 
+    }else{
+        redirect("main_controller");
+    }
     }
 
     public function tambah_anggota(){
@@ -385,14 +438,25 @@ class Admin_controller extends CI_Controller{
     }
 
     public function detail_anggota($id){
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $this->load->model('main_model');
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
             $data["user"]=$this->main_model->get_detail_anggota($id);
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/detail_anggota',$data);
             $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
 
     public function hal_update_anggota($id){
+        $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $data["user"]=$this->main_model->get_detail_anggota($id);
         $data["fakultas"]=$this->main_model->get_fakultas();
         $data["jurusan"]=$this->main_model->get_jurusan();
@@ -407,17 +471,78 @@ class Admin_controller extends CI_Controller{
 
         if($this->form_validation->run()==false){
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/update_anggota',$data);
             $this->load->view('templates_admin/footer');
         }else{
-            $this->update_anggota();
+            $this->_update_anggota();
         }
-        
+    }else{
+        redirect("main_controller");
+    }
         
     }
 
-    public function update_anggota(){
+    public function hal_update_profil(){
+        
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $this->load->model('main_model');
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
+        $this->form_validation->set_rules("nama","Nama","required");
+        $this->form_validation->set_rules("nim","Nomer Induk","exact_length[8]");
+        $this->form_validation->set_rules("ttl","Tanggal Lahir","required");
+        $this->form_validation->set_rules("nama","Nama","required");
+        $this->form_validation->set_rules("kelamin","Kelamin","required");
+
+        if($this->form_validation->run()==false){
+            $this->load->view('templates_admin/header');
+            $this->load->view('templates_admin/sidebar',$data);
+            $this->load->view('templates_admin/update_profil',$data);
+            $this->load->view('templates_admin/footer');
+        }else{
+            $this->_update_profil();
+        }
+    }else{
+            redirect("main_controller");
+        }
+    }
+    private function _update_profil(){
+        $id = $this->input->post('id');
+        $nama = $this->input->post('nama');
+        $no_induk  = $this->input->post('nim');
+        $ttl  = $this->input->post('ttl');
+        $kelamin  = $this->input->post('kelamin');
+        $foto = $_FILES["foto"];
+        $nm_foto = $this->input->post('nm_foto');
+
+        if($foto!=""){
+            $config["allowed_types"]="jpg|jpeg|png";
+            $config["max_size"]=200;
+            $config["upload_path"]="./img/admin";
+            $config["encrypt_name"]=true;
+            $this->load->library('upload',$config);
+
+            if($this->upload->do_upload("foto")){
+                $nm_foto=$this->upload->data('file_name');
+            }
+        }
+        $where=[
+            "id"=>$id
+        ];
+        $data=[
+            "nama"=>$nama,
+            "nomer_induk"=>$no_induk,
+            "jenis_kelamin"=>$kelamin,
+            "ttl"=>$ttl,
+            "foto"=>$nm_foto
+        ];
+        $this->main_model->update_admin($data,$where);
+        redirect('admin_controller/profil_admin');
+         
+    }
+
+    private function _update_anggota(){
         $id = $this->input->post('id');
         $nama = $this->input->post('nama');
         $nim  = $this->input->post('nim');
@@ -461,13 +586,19 @@ class Admin_controller extends CI_Controller{
         
     }
 
-    public function hal_buku_hilang()
-    {
+    public function hal_buku_hilang(){
+        $this->load->model('main_model');
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
             $data['buku']=$this->main_model->buku_hilang();
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_admin/sidebar',$data);
             $this->load->view('templates_admin/buku_hilang',$data);
             $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
     public function tambah_buku_hilang($id){
         $result=$this->main_model->get_detail_peminjaman($id);

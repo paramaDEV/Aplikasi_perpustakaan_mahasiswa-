@@ -19,12 +19,13 @@
               <div class="card-body">
               <div class="card mx-auto" id="detail" >
                 <div class="image mx-auto" style="overflow:hidden" >
-                  <img src="<?php if($user["foto"]==""){
+                <div class="foto" style="height:250px;width:250px;overflow:hidden;border-radius:50%">
+                  <img style="width:250px"src="<?php if($user["foto"]==""){
                       echo base_url()."img/user/profile.png";
                   }else{
                       echo base_url()."img/user/".$user["foto"];
-                  }?>" 
-                  class="thumbnail mx-auto mt-3"  alt="Cover Buku">
+                  }?>" >
+                  </div>
                 </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item"><b>Nama :</b> <?=$user["nama"]?></li>
@@ -38,8 +39,6 @@
                   </ul>
                   <div class="card-body">
                     <b><a href=<?=base_url()."admin_controller/hal_update_anggota/".$user["id"]?> class="card-link mr-3">Edit</a></b>
-                    <b><a href=<?=base_url()."admin_controller/hapus_anggota/".$user["id"]?> class="card-link text-danger"
-                    onclick="return confirm('Apakah anda yakin menghapus data ini ?')">Delete</a></b>
                   </div>
                 </div>
             </div>

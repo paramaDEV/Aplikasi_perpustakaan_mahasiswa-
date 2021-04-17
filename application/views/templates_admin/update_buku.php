@@ -54,7 +54,7 @@
           ?>
             <option value=<?=$x["id"]?> selected ><?=$x["tema"]?></option>
           <?php } else{?>
-            <option value=<?=$x["id"]?> selected ><?=$x["tema"]?></option>
+            <option value=<?=$x["id"]?>  ><?=$x["tema"]?></option>
           <?php } endforeach;?>
           </select>
         </div>

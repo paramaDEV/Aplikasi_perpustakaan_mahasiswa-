@@ -34,7 +34,7 @@ date_default_timezone_set('Asia/Jakarta');
               </button>
             </div>
             <div class="modal-body">
-              <form method="POST" action="<?=base_url()."main_controller/form_tambah_peminjaman"?>">
+              <form method="POST" action="<?=base_url()."admin_controller/form_tambah_peminjaman"?>">
                 <div class="form-group">
                   <label for="kode_buku">Kode Buku</label>
                   <input type="text" class="form-control" id="kode_buku" name="kode_buku"  required placeholder="Kode Buku">

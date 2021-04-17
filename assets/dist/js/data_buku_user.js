@@ -4,8 +4,9 @@ $(document).ready(()=>{
     let generateTable= idtema=>{
         let table=`<thead><tr>
                     <th>#</th>
-                    <th>Kode Buku</th>
                     <th>Judul Buku</th>
+                    <th>Penulis</th>
+                    <th>Lokasi</th>
                     <th>Tersedia</th>
                     <th>Action</th>
                     </tr>
@@ -15,22 +16,17 @@ $(document).ready(()=>{
             if(xhr.readyState==4 && xhr.status==200){
                 let data=JSON.parse(xhr.responseText);
                 data.forEach(e=> {
-                    let{id,kode_buku,judul,jumlah}=e;
+                    let{id,judul,penulis,lokasi,jumlah}=e;
                     let no=1;
                     table+=`<tr>
                     <td>${no++}</td>
-                    <td>${kode_buku}</td>
                     <td>${judul}</td>
+                    <td>${penulis}</td>
+                    <td>Rak ${lokasi}</td>
                     <td>${jumlah}</td>
                     <td colspan=3><a href='${base_url}user_controller/detail_buku/${id}'>
                     <button type="button" class="btn btn-primary" >Detail
                     </button></a>
-                    <a href='${base_url}user_controller/hal_update_buku/${id}'>
-                    <button type="button" class="btn btn-success" >Edit
-                    </button></a>
-                    <a href='${base_url}user_controller/hapus_buku/${id}'>
-                    <button type="button" class="btn btn-danger" onclick="return confirm('Anda yakin menghapus data ini ?');">Delete
-                    </button></a></td>
                 </tr>`;
                 });
                $("table").html(table);

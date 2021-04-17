@@ -24,60 +24,30 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?=count($peminjaman)?></h3>
 
                 <p>Sedang dipinjam</p>
               </div>
               <div class="icon">
                 <i class="fas fa-book-reader"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-6 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-danger">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                  <p>Rata-rata peminjaman</p>
-              </div>
-              <div class="icon">
-              <i class="fas fa-chart-line"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
+              <h3><?=count($terlambat)?></h3>
                   <p>Belum kembali dan terlambat</p>
               </div>
               <div class="icon">
                 <i class="fas fa-clock"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-                  <p>Kehilangan</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-exclamation-triangle"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -110,13 +80,22 @@
                     <tr>
                       <th scope="col">#</th>
                       <th>Kode Buku</th>
-                      <th scope="col">Nama Buku</th>
+                      <th scope="col">Judul Buku</th>
                       <th>Mulai Pinjam</th>
-                      <th>Terakhir Pinjam</th>
-                      <th scope="col">Status</th>
+                      <th>Batas Pinjam</th>
                     </tr>
                   </thead>
-                 
+                 <?php
+                 $no=1;
+                 foreach($terlambat as $x):?>
+                 <tr>
+                      <td scope="col"><?=$no++?></td>
+                      <td><?=$x["kode_buku"]?></td>
+                      <td scope="col"><?=$x["judul"]?></td>
+                      <td><?=$x["tanggal_pinjam"]?></td>
+                      <td><?=$x["batas_pinjam"]?></td>
+                  </tr>
+                 <?php endforeach;?>
                 </table>
               </div>
             </div>

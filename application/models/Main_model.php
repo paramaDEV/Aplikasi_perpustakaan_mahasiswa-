@@ -39,6 +39,17 @@ class Main_model extends CI_Model{
        $this->db->delete('data_buku',$where);
    }
 
+   public function get_user_peminjaman($idusr){
+       $this->db->select("*");
+       $this->db->from("peminjaman");
+       $this->db->join("data_buku","data_buku.id=peminjaman.id_buku AND id_user='$idusr'");
+       return $this->db->get()->result_array();
+   }
+
+   public function get_user($usrid){
+       return $this->db->get_where("user",["id"=>$usrid])->row_array();
+   }
+
    public function get_data_buku_by_kode($kode){
     $this->db->select("*");
     $this->db->from("jenis_tema");
@@ -127,12 +138,19 @@ class Main_model extends CI_Model{
         $this->db->join("user","user.id_fakultas=fakultas.id AND user.id_jurusan=jurusan.id AND user.id='$id'");
         return $this->db->get()->row_array(); 
     }
+    public function get_detail_admin($id){
+        return $this->db->get_where('admin',["id"=>$id])->row_array();
+    }
     public function hapus_anggota($id){
         $this->db->delete("user",["id"=>$id]);
     }
     public function update_anggota($data,$where){
         $this->db->where($where);
         $this->db->update('user',$data);
+    }
+    public function update_admin($data,$where){
+        $this->db->where($where);
+        $this->db->update('admin',$data);
     }
     public function buku_hilang(){
         $this->db->select("*");
