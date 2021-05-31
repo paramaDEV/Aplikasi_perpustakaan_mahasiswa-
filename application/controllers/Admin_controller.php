@@ -95,8 +95,8 @@ class Admin_controller extends CI_Controller{
          $penulis = $this->input->post('penulis');
          $thumbnail =$_FILES["thumb"];
          $penerbit  = $this->input->post('penerbit');
-         $jmlh_halaman =$_FILES["jmlh_halaman"];
-         $jmlh_buku =$_FILES["jmlh_buku"];
+         $jmlh_halaman =$this->input->post("jmlh_halaman");
+         $jmlh_buku =$this->input->post("jmlh_buku");
          $lokasi = $this->input->post('lokasi');
          if($thumbnail!=""){
              $config["upload_path"]="./img/buku";
@@ -171,7 +171,7 @@ class Admin_controller extends CI_Controller{
             $config["upload_path"]="./img/buku";
             $config["allowed_types"]="jpg|jpeg|png";
             $config["encrypt_name"]=TRUE;
-            $config["max_size"]=200;
+            $config["max_size"]=500;
 
             $this->load->library('upload',$config);
             if($this->upload->do_upload('thumb')){
@@ -248,9 +248,13 @@ class Admin_controller extends CI_Controller{
         $admnid=$this->session->userdata("id");
         if($admnid!=null){
         $data["admin"]=$this->main_model->get_detail_admin($admnid);
-        $kode_buku=$this->input->post('kode_buku');
+        $kode_buku=explode(",",$this->input->post('kode_buku'));
+        $buku=[];
         $nim = $this->input->post('nim');
-        $data["buku"]=$this->main_model->get_data_buku_by_kode($kode_buku);
+        foreach($kode_buku as $x):
+            $buku[]=$this->main_model->get_data_buku_by_kode($x);
+        endforeach;
+        $data["buku"]=$buku;
         $data["mahasiswa"]=$this->main_model->get_data_user_by_nim($nim);
 
         if($data["buku"]==null || $data["mahasiswa"]==null){
@@ -269,18 +273,22 @@ class Admin_controller extends CI_Controller{
 
     public function tambah_peminjaman(){
         $idbuku=$this->input->post('id_buku');
+        $idbuku=explode(",",$idbuku);
+        array_pop($idbuku);
         $idmhs=$this->input->post('id_user');
         $tgl_pinjam = $this->input->post('tgl_pinjam');
         $tgl_kembali = $this->input->post('tgl_kembali');
 
-        $data=[
-            "id_buku"=>$idbuku,
-            "id_user"=>$idmhs,
-            "tanggal_pinjam"=>$tgl_pinjam,
-            "batas_pinjam"=>$tgl_kembali
-        ];
+        for($i=0;$i<count($idbuku);$i++){
+            $data=[
+                "id_buku"=>$idbuku[$i],
+                "id_user"=>$idmhs,
+                "tanggal_pinjam"=>$tgl_pinjam,
+                "batas_pinjam"=>$tgl_kembali
+            ];
 
-        $this->main_model->tambah_peminjaman($data);
+            $this->main_model->tambah_peminjaman($data);
+        }
         redirect("admin_controller/hal_peminjaman");
     }
 
@@ -356,13 +364,17 @@ class Admin_controller extends CI_Controller{
 
     public function hal_detail_pengembalian($id){
         $this->load->model('main_model');
-
+        $admnid=$this->session->userdata("id");
+        if($admnid!=null){
         $data["pengembalian"]=$this->main_model->get_detail_pengembalian($id);
-
+        $data["admin"]=$this->main_model->get_detail_admin($admnid);
         $this->load->view('templates_admin/header');
-        $this->load->view('templates_admin/sidebar');
+        $this->load->view('templates_admin/sidebar',$data);
         $this->load->view('templates_admin/detail_pengembalian',$data);
         $this->load->view('templates_admin/footer');
+        }else{
+            redirect("main_controller");
+        }
     }
 
     public function data_anggota($id=null){
@@ -410,7 +422,7 @@ class Admin_controller extends CI_Controller{
 
         if($foto!=""){
             $config["allowed_types"] = "jpg|jpeg|png";
-            $config["max_size"]=200;
+            $config["max_size"]=500;
             $config["upload_path"]="./img/user";
             $config["encrypt_name"]=true;
 
@@ -518,7 +530,7 @@ class Admin_controller extends CI_Controller{
 
         if($foto!=""){
             $config["allowed_types"]="jpg|jpeg|png";
-            $config["max_size"]=200;
+            $config["max_size"]=500;
             $config["upload_path"]="./img/admin";
             $config["encrypt_name"]=true;
             $this->load->library('upload',$config);
@@ -555,7 +567,7 @@ class Admin_controller extends CI_Controller{
 
         if($foto!=""){
             $config["allowed_types"]="jpg|jpeg|png";
-            $config["max_size"]=200;
+            $config["max_size"]=500;
             $config["upload_path"]="./img/user";
             $config["encrypt_name"]=true;
             $this->load->library('upload',$config);

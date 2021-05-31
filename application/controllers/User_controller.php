@@ -122,7 +122,7 @@ class User_controller extends CI_Controller{
 
         if($this->form_validation->run()==false){
             $this->load->view('templates_admin/header');
-            $this->load->view('templates_admin/sidebar');
+            $this->load->view('templates_user/sidebar',$data);
             $this->load->view('templates_admin/update_anggota',$data);
             $this->load->view('templates_admin/footer');
         }else{
@@ -147,7 +147,7 @@ class User_controller extends CI_Controller{
 
         if($foto!=""){
             $config["allowed_types"]="jpg|jpeg|png";
-            $config["max_size"]=200;
+            $config["max_size"]=500;
             $config["upload_path"]="./img/user";
             $config["encrypt_name"]=true;
             $this->load->library('upload',$config);

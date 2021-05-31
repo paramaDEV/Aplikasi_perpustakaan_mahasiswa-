@@ -1,6 +1,5 @@
 $(document).ready(()=>{
     let base_url='http://localhost/Aplikasi_perpustakaan_mahasiswa-/';
-
     let generateTable= idtema=>{
         let table=`<thead><tr>
                     <th>#</th>
@@ -15,9 +14,9 @@ $(document).ready(()=>{
         xhr.onreadystatechange=()=>{
             if(xhr.readyState==4 && xhr.status==200){
                 let data=JSON.parse(xhr.responseText);
+                let no=1;
                 data.forEach(e=> {
                     let{id,judul,penulis,lokasi,jumlah}=e;
-                    let no=1;
                     table+=`<tr>
                     <td>${no++}</td>
                     <td>${judul}</td>
@@ -33,7 +32,7 @@ $(document).ready(()=>{
             }
         }
         
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/admin_controller/data_buku_by_tema/${idtema}`,true);
+        xhr.open('GET',`${base_url}admin_controller/data_buku_by_tema/${idtema}`,true);
         xhr.send(); 
     };
     generateTable(1);

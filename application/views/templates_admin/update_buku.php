@@ -50,7 +50,7 @@
           <select class="form-control" id="tema" name="tema">
           <?php
           foreach($tema as $x):
-            if($x["id"]==$buku["tema"]){
+            if($x["tema"]==$buku["tema"]){
           ?>
             <option value=<?=$x["id"]?> selected ><?=$x["tema"]?></option>
           <?php } else{?>

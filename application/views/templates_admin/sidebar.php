@@ -21,7 +21,7 @@
         </div>
         <div class="info ml-3 text-white" >
           <a class="d-block"><b><?=$admin['nama']?></b></a>
-          <a class="d-block">User</a>
+          <a class="d-block">Admin</a>
         </div>
       </div>
 

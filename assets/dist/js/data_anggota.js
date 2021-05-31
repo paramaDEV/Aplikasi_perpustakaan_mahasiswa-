@@ -1,5 +1,5 @@
 $(document).ready(()=>{
-    
+    let base_url=`http://localhost/Aplikasi_perpustakaan_mahasiswa-/`;
     let generate_jurusan = (key,jurusan,isTrue=false)=>{
         let option="";
         let xhr = new XMLHttpRequest();
@@ -18,7 +18,7 @@ $(document).ready(()=>{
 
             }
         }
-        xhr.open('GET',`http://localhost/Aplikasi_perpustakaan_mahasiswa-/index.php/admin_controller/data_jurusan/${key}`,true);
+        xhr.open('GET',`${base_url}index.php/admin_controller/data_jurusan/${key}`,true);
         xhr.send();
     };
 
@@ -34,7 +34,6 @@ $(document).ready(()=>{
           <th>Action</th>
         </tr>
       </thead>`;
-        let base_url="http://localhost/Aplikasi_perpustakaan_mahasiswa-/";
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = ()=>{
             if(xhr.readyState==4 && xhr.status==200){

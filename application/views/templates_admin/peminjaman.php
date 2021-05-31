@@ -38,6 +38,7 @@ date_default_timezone_set('Asia/Jakarta');
                 <div class="form-group">
                   <label for="kode_buku">Kode Buku</label>
                   <input type="text" class="form-control" id="kode_buku" name="kode_buku"  required placeholder="Kode Buku">
+                  <small>Jika buku lebih dari satu, tulis kode dibatasi koma. Contoh: 129xxx, 938xxx</small>
                 </div>
                 <div class="form-group">
                   <label for="nim">Nomer Induk Mahasiswa</label>
@@ -127,7 +128,7 @@ date_default_timezone_set('Asia/Jakarta');
 <style>
   table .btn{
     height : unset;
-    width : 50px;
+    width : 55px;
     padding : 2px;
     font-size:14px;
     margin : 2px;

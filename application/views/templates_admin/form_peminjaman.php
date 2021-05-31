@@ -27,28 +27,39 @@ date_default_timezone_set('Asia/Jakarta');
                 </h3>
               </div>
               <div class="card-body">
-                <div class="form-group col-md-6">
-                      <label for="kode_buku">Gambar Buku</label>
-                      <br>
-                      <img src="<?=base_url().'img/buku/'.$buku['thumbnail']?>" height="300px">
-                </div>
-                <form method="POST" action="<?=base_url().'main_controller/tambah_peminjaman'?>">
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="kode_buku">Kode Buku</label>
-                      <input type="text" class="form-control" readonly id="kode_buku" name="kode_buku" value="<?=$buku['kode_buku']?>">
-                      <input type="hidden" name="id_buku" value="<?=$buku['id']?>">
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="kode_buku">Judul Buku</label>
-                      <input type="text" class="form-control" readonly id="kode_buku" name="kode_buku" value="<?=$buku['judul']?>">
-                      <input type="hidden" name="id_user" value="<?=$mahasiswa['id']?>">
-                    </div>
-                  </div>
+                <form method="POST" action="<?=base_url().'admin_controller/tambah_peminjaman/'?>">
+                <table class="table table-striped mb-3 caption-top">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Kode Buku</th>
+                      <th>Judul Buku</th>
+                      <th>Foto Cover</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php 
+                  $no=1;
+                  $temp='';
+                  foreach($buku as $x):
+                    $temp.=$x["id"].",";
+                  ?>
+                    <tr>
+
+                      <th scope="row"><?=$no++?></th>
+                      <td><?=$x["kode_buku"]?></td>
+                      <td><?=$x["judul"]?></td>
+                      <td><img src="<?=base_url().'img/buku/'.$x['thumbnail']?>" height="100px"></td>
+                      <input type="hidden" name="id_buku" value="<?=$temp?>">
+                    </tr>
+                  <?php endforeach; ?>
+                  </tbody>
+                </table>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="nim">Nomer Induk</label>
                       <input type="text" class="form-control" readonly id="nim" name="nim" value="<?=$mahasiswa['nim']?>">
+                      <input type="hidden" class="form-control" readonly id="id_user" name="id_user" value="<?=$mahasiswa['id']?>">
                     </div>
                     <div class="form-group col-md-6">
                       <label for="nama">Nama </label>
